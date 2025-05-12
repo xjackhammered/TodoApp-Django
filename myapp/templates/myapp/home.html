@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
+
+
+
+<div class="home-container">
+    <div>
+        <p>Workspace</p>
+        <hr>
+    </div>
+
+    <div>
+        <h1>Task list</h1>
+
+        {% for task in tasks %}
+
+        <h2>{{task.name}}</h2>
+        <p>@{{task.host}}</p>
+        <p>{{task.created|timesince}}</p>
+
+        <strong>{{task.description}}</strong><br>
+        <small>{{task.topic.name}}</small>
+        <hr>
+        {% endfor %}
+    </div>
+
+    <div>
+        <p>Upcoming Tasks</p>
+        <hr>
+    </div>
+
+</div>
+{% endblock content %}
