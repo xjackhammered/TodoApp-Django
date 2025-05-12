@@ -29,3 +29,7 @@ def loginPage(request):
             messages.error(request, 'Username or password does not exist.')
     
     return render(request, "myapp/login_register.html")
+
+def logoutUser(request):
+    logout(request)
+    return redirect("home")
