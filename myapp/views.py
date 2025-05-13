@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.forms import UserCreationForm
 from .forms import TaskForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -53,7 +54,7 @@ def registerUser(request):
             messages.error(request, "An error has occured during registration.")
     return render(request, "myapp/login_register.html", {"form":form})
 
-
+@login_required(login_url="login")
 def addTask(request):
     form = TaskForm()
     if request.method == 'POST':
