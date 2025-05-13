@@ -14,6 +14,7 @@
 <div class="home-container">
     <div>
         <h2>Welcome, {{user.username}}</h2>
+        <a href="{% url 'add-task' %}">Add task</a>
         <p>Workspace</p>
         <hr>
     </div>
@@ -28,7 +29,8 @@
         <p>{{task.created|timesince}}</p>
 
         <strong>{{task.description}}</strong><br>
-        <small>{{task.topic.name}}</small>
+        <small>{{task.topic.name}}</small><br>
+        <strong>{{task.deadline}}</strong>
         <hr>
         {% endfor %}
     </div>

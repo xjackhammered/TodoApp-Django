@@ -4,6 +4,7 @@ from .models import Topic, Task
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.forms import UserCreationForm
+from .forms import TaskForm
 
 # Create your views here.
 def home(request):
@@ -51,3 +52,16 @@ def registerUser(request):
         else:
             messages.error(request, "An error has occured during registration.")
     return render(request, "myapp/login_register.html", {"form":form})
+
+
+def addTask(request):
+    form = TaskForm()
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.host = request.user
+            task.save()
+            return redirect("home")
+    
+    return render(request, "myapp/task_form.html", {"form":form})
