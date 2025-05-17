@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.contrib import messages
 from .models import Topic, Task
 from django.contrib.auth.models import User
@@ -8,9 +9,21 @@ from .forms import TaskForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+@login_required(login_url="login")
 def home(request):
-    tasks = Task.objects.all()
-    return render(request,"myapp/home.html", {"tasks":tasks})
+    if request.GET.get('q') != None:
+        q = request.GET.get('q')
+    else:
+        q = ""
+    tasks = Task.objects.filter(
+        Q(topic__name__icontains=q),
+        host = request.user
+    )
+
+    topics = Topic.objects.all()
+
+    return render(request,"myapp/home.html", {"tasks":tasks, "topics":topics})
 
 def loginPage(request):
 

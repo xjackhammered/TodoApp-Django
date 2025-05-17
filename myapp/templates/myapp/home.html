@@ -9,14 +9,17 @@
     }
 </style>
 
-
-
 <div class="home-container">
     <div>
         <h2>Welcome, {{user.username}}</h2>
         <a href="{% url 'add-task' %}">Add task</a>
         <p>Topics</p>
         <hr>
+        {% for topic in topics %}
+        <div>
+            <a href="{% url 'home'%}?q={{topic.name}}">{{topic.name}}</a>
+        </div>
+        {% endfor %}
     </div>
 
     <div>
