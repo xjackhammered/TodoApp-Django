@@ -66,3 +66,16 @@ def addTask(request):
             return redirect("home")
     
     return render(request, "myapp/task_form.html", {"form":form})
+
+def updateTask(request, id):
+    task = Task.objects.get(id=id)
+    form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+    
+    return render(request,'myapp/task_form.html',{"form":form})
+

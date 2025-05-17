@@ -15,7 +15,7 @@
     <div>
         <h2>Welcome, {{user.username}}</h2>
         <a href="{% url 'add-task' %}">Add task</a>
-        <p>Workspace</p>
+        <p>Topics</p>
         <hr>
     </div>
 
@@ -31,6 +31,7 @@
         <strong>{{task.description}}</strong><br>
         <small>{{task.topic.name}}</small><br>
         <strong>{{task.deadline}}</strong>
+        <a href="{% url 'update-task' task.id %}">Edit</a>
         <hr>
         {% endfor %}
     </div>
