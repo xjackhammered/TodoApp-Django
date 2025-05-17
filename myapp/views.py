@@ -22,7 +22,6 @@ def home(request):
     )
 
     topics = Topic.objects.all()
-
     return render(request,"myapp/home.html", {"tasks":tasks, "topics":topics})
 
 def loginPage(request):
