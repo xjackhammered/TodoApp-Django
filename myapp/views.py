@@ -67,6 +67,7 @@ def addTask(request):
     
     return render(request, "myapp/task_form.html", {"form":form})
 
+@login_required(login_url="login")
 def updateTask(request, id):
     task = Task.objects.get(id=id)
     form = TaskForm(instance=task)
@@ -79,3 +80,10 @@ def updateTask(request, id):
     
     return render(request,'myapp/task_form.html',{"form":form})
 
+@login_required(login_url="login")
+def deleteTask(request, id):
+    task = Task.objects.get(id=id)
+    if request.method == "POST":
+        task.delete()
+        return redirect("home")
+    return render(request, "myapp/delete.html", {'obj':task})

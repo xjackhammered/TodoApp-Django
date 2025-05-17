@@ -23,7 +23,7 @@
         <h1>Task list</h1>
 
         {% for task in tasks %}
-
+        
         <h2>{{task.name}}</h2>
         <p>@{{task.host}}</p>
         <p>{{task.created|timesince}}</p>
@@ -31,7 +31,11 @@
         <strong>{{task.description}}</strong><br>
         <small>{{task.topic.name}}</small><br>
         <strong>{{task.deadline}}</strong>
+        
+        {% if request.user == task.host %}
         <a href="{% url 'update-task' task.id %}">Edit</a>
+        <a href="{% url 'delete-task' task.id %}">Delete</a>
+        {% endif %}
         <hr>
         {% endfor %}
     </div>
